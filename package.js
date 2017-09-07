@@ -1,13 +1,24 @@
+Npm.depends({
+  fibers: '2.0.0'
+});
+
 Package.describe({
+  name: 'bulk-collection-update',
   summary: "Bulk insert/update/delete documents in a collection",
-  version: "0.2.0",
-  git: "https://github.com/udondan/meteor-bulk-collection-update.git",
+  version: "0.5.2",
+  git: "https://github.com/sembrador/bulk-collection-update.git",
   environments: ['server']
 });
 
-Package.on_use(function (api) {
-  api.versionsFrom("METEOR@0.9.0");
-  where = 'server';
-  api.add_files('lib/bulkCollectionUpdate.js', where);
-  api.export && api.export('bulkCollectionUpdate', where);
+Package.onUse(function(api) {
+  api.versionsFrom('1.5.2');
+  api.use('ecmascript');
+  api.mainModule('bulk-collection-update.js');
+});
+
+Package.onTest(function(api) {
+  api.use('ecmascript');
+  api.use('tinytest');
+  api.use('bulk-collection-update');
+  api.mainModule('bulk-collection-update-tests.js');
 });
